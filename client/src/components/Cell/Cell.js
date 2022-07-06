@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Grommet,
@@ -19,6 +19,7 @@ import { CellForm } from "../CellForm/CellForm";
 export const Cell = (props) => {
   const { isSelected, onSelect, selected, date, day, hasContent } = props;
 
+
   return (
     <Box
       background={isSelected ? "light-3" : "white"}
@@ -38,7 +39,7 @@ export const Cell = (props) => {
         }
         dropContent={
           <Box pad="large">
-            <CellForm />
+            <CellForm  />
           </Box>
         }
         dropAlign={{

@@ -13,7 +13,7 @@ import {
   Button,
 } from "grommet";
 
-export const CellForm = () => {
+export const CellForm = ({setOpen}) => {
   return (
     <Form
       onSubmit={({ value }) => {
@@ -26,6 +26,7 @@ export const CellForm = () => {
       <Box direction="row" gap="medium">
         <Button type="submit" primary label="Submit" />
         <Button type="reset" label="Reset" />
+        <Button type="close" onClose={() => setOpen(false)} label="Close" />
       </Box>
     </Form>
   );
