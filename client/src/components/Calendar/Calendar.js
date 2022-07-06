@@ -5,7 +5,7 @@ import { Notification } from 'grommet-icons';
 import { Cell } from '../Cell/Cell';
 
 export const CustomDayCalendar = () => {
-    const calendarContent = [7, 8, 9];
+    const calendarContent = [];
     const [selectedDay, setSelectedDay] = useState();
     const onSelect = (value) => {
         setSelectedDay(value);
@@ -16,12 +16,12 @@ export const CustomDayCalendar = () => {
         <Box>
             <Box align="center" pad="large">
                 <Heading level={4}>Test Calendar</Heading>
-                <Calendar date={selectedDay} fill>
+                <Calendar date={selectedDay} showAdjacentDays={"trim"} fill>
                     {({ date, day, isSelected }) => {
                         const hasContent = calendarContent.includes(day);
                         return (
                             <Cell 
-                                date = { date}
+                                date = { date }
                                 day= { day }
                                 isSelected = { isSelected }
                                 hasContent = { hasContent }
@@ -33,6 +33,7 @@ export const CustomDayCalendar = () => {
             </Box>
      
         </Box>
+                  selected={selectedDay}
         </Grommet>
     )
 

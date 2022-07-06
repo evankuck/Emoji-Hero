@@ -14,9 +14,10 @@ import {
   Button,
 } from "grommet";
 import { Notification } from "grommet-icons";
+import { CellForm } from "../CellForm/CellForm";
 
 export const Cell = (props) => {
-  const { isSelected, onSelect, date, day, hasContent } = props;
+  const { isSelected, onSelect, selected, date, day, hasContent } = props;
 
   return (
     <Box
@@ -25,34 +26,27 @@ export const Cell = (props) => {
       border
       fill
     >
-      <Stack anchor="top-right" fill>
-        <Box pad="small" align="center" justify="center" fill>
-          <Text size="large">{day}</Text>
-        </Box>
+      {/* <Stack anchor="top-right" fill> */}
 
-        {hasContent ? (
-          <DropButton
-            icon={<Notification size="small" color="neutral-3" />}
-            open /* INSERT BOOLEAN TO MAKE ONLY ONE DROPE BUTTON OPEN AT A TIME */
-            dropContent={
-              <Box pad="large">
-                <Form onSubmit={({ value }) => {console.log(value)}}>
-                  <FormField name="name" htmlFor="textinput-id" label="Choose an Emoji">
-                    <TextInput id="textinput-id" name="emoji" />
-                  </FormField>
-                  <Box direction="row" gap="medium">
-                    <Button type="submit" primary label="Submit" />
-                    <Button type="reset" label="Reset" />
-                  </Box>
-                </Form>
-              </Box>
-            }
-            dropAlign={{
-              top: "bottom",
-            }}
-          />
-        ) : null}
-      </Stack>
+      {/* {hasContent ? ( */}
+      <DropButton
+        open={isSelected}
+        icon={
+          <Box pad="small" align="center" justify="center" fill>
+            <Text size="large">{day}</Text>
+          </Box>
+        }
+        dropContent={
+          <Box pad="large">
+            <CellForm />
+          </Box>
+        }
+        dropAlign={{
+          top: "bottom",
+        }}
+      />
+      {/* ) : null} */}
+      {/* </Stack> */}
     </Box>
   );
 };
