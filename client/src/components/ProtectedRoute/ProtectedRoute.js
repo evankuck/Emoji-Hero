@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Navigate } from "react-router-dom";
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
-  function hasJWT() {
+  function hasToken() {
     const token = localStorage.getItem("token");
     return token !== null;
   }
 
-  return hasJWT() ? <Component {...rest} /> : <Navigate to="/login" />;
+  return hasToken() ? <Component {...rest} /> : <Navigate to="/login" />;
 };

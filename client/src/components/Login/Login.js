@@ -1,41 +1,54 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useMutation, gql } from "@apollo/client";
 export const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const LOGIN = gql`
+    mutation Login($email: String!, $password: String!) {
+      login(email: $email, password: $password)
+    }
+  `;
+
+  const [loginFunction, { data, loading, error }] = useMutation(LOGIN);
+  useEffect(() => {
+    if (data && data.login) {
+      console.log(data.login);
+      localStorage.setItem("token", data.login);
+    }
+  }, [data]);
 
   return (
     <div>
-      <h1>Enter Username and password</h1>
+      <h1>Enter Email and Password</h1>
       <form>
-        <input name="username" placeholder="username" type="text" />
-        <input name="password" placeholder="password" type="password" />
-        <button onClick={() => loginFunction({ username, password })} type="button">
+        <input
+          name="email"
+          placeholder="email"
+          type="text"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <input
+          name="password"
+          placeholder="password"
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <button
+          onClick={() => {
+            console.log({ email, password });
+            loginFunction({ variables: { email, password } });
+          }}
+          type="button"
+        >
           Login
+        </button>
+        <button>
+          Create Account
         </button>
       </form>
     </div>
   );
-};
-
-const loginFunction = async ({ username, password }) => {
-  // uncomment thiis fetch
-  //   const response = await fetch("http://localhost:3000/api/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       username,
-  //       password,
-  //     }),
-  //   });
-  const data = {
-    token: "HELLO WORLD",
-  }; // change to: await response.json();
-  console.log(data);
-  if (data.token) {
-    localStorage.setItem("token", data.token);
-    window.location.href = "/";
-  }
 };
