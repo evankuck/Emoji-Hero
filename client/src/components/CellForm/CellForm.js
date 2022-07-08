@@ -15,7 +15,7 @@ import {
 } from "grommet";
 import { Close, Send, User } from 'grommet-icons';
 
-export const CellForm = ({setOpen}) => {
+export const CellForm = ({setOpen, data}) => {
   return (
     <Form
       onSubmit={({ value }) => {
