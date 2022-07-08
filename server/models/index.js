@@ -1,7 +1,8 @@
 import { User } from "./user.js";
-
+import { Day } from './day.js'
 const models = {
-    User
+    User,
+    Day
 }
 export default models
 

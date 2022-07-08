@@ -9,8 +9,11 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
-
-    }
+    },
+    days: [{
+        type: Schema.Types.ObjectId,
+        ref: "Day"
+    }]
 })
 
 export const User = model("User", UserSchema)
