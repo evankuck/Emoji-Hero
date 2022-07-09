@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   Grommet,
@@ -12,7 +12,7 @@ import {
 import { Notification } from "grommet-icons";
 import { Cell } from "../Cell/Cell";
 import { gql, useQuery } from "@apollo/client";
-
+import {UserContext} from '../../context/UserContext';
 const GET_DAYS_BY_USERID = gql`
   query GetDaysByUserId($userId: String!) {
     getDaysByUserId(userId: $userId) {
@@ -26,10 +26,11 @@ const GET_DAYS_BY_USERID = gql`
 
 export const CustomDayCalendar = () => {
   const [selectedDay, setSelectedDay] = useState();
+  const { _id } = useContext(UserContext);
   //   const calendarContent = [];
   const { loading, error, data } = useQuery(GET_DAYS_BY_USERID, {
     variables: {
-      userId: "62c87d6c43fab50e0426ffc4", // hard coded for testing purposes
+      userId: _id, // hard coded for testing purposes
     },
   });
   if (loading) return <p>Loading...</p>;
@@ -50,7 +51,7 @@ export const CustomDayCalendar = () => {
           <Heading level={4}>Test Calendar</Heading>
           <Calendar date={selectedDay} showAdjacentDays={"trim"} fill>
             {({ date, day, isSelected }) => {
-                // hasContent is a boolean that determines if there is a day with a date property that matches the date of the day in the iteration.
+              // hasContent is a boolean that determines if there is a day with a date property that matches the date of the day in the iteration.
               const hasContent = getDaysByUserId
                 .map((day) => new Date(parseInt(day.date)).toDateString())
                 .includes(date.toDateString());

@@ -6,6 +6,7 @@ export const typeDefs = gql`
         email: String!
         password: String!
         days: [Day]
+        token: String
     }
 
     type Day {
@@ -16,13 +17,16 @@ export const typeDefs = gql`
     }
 
     type Query {
-        me(_id: String!): User
+        me(token: String!): User
         getUsers: [User]
         getDaysByUserId(userId: String!): [Day]
     }
 
     type Mutation {
         createUser(email: String! password: String!): User
+        login(email: String! password: String!): String
         createDay(emoji: String! date: String! userId: String!): Day
+        updateDay(_id: String! emoji: String date: String): Day
+        deleteDay(_id: String!): Day
     }    
-`
+`;

@@ -11,30 +11,35 @@ import { gql, useQuery } from "@apollo/client";
 
 function App() {
   const ME = gql`
-    query {
-      me {
-        _id
-        email
-        days {
-          _id
-          date
-        }
-      }
+  query Query($token: String!) {
+    me(token: $token) {
+      _id
+      email
+      password
+      token
     }
+  }
   `;
 
-  const { data, loading, error } = useQuery(ME);
+  const { data, loading, error } = useQuery(ME, {
+    variables: {
+      token: localStorage.getItem("token") || "",
+    },
+  });
+
+  if (loading) return <p>Loading...</p>;
+
   console.log({ data, error });
   return (
     <>
-      {/* <UserContext.Provider value={user}> */}
+      <UserContext.Provider value={data.me}>
         <Router>
           <Routes>
             <Route path="/" element={<ProtectedRoute component={HomePage} />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>
         </Router>
-      {/* </UserContext.Provider> */}
+      </UserContext.Provider>
     </>
   );
 }
