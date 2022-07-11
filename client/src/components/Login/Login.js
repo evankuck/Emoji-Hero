@@ -10,13 +10,42 @@ export const Login = () => {
     }
   `;
 
-  const [loginFunction, { data, loading, error }] = useMutation(LOGIN);
-  useEffect(() => {
-    if (data && data.login) {
-      console.log(data.login);
-      localStorage.setItem("token", data.login);
+  const CREATE_USER = gql`
+    mutation Mutation($email: String!, $password: String!) {
+      createUser(email: $email, password: $password) {
+        token
+      }
     }
-  }, [data]);
+  `;
+
+  const [
+    loginFunction,
+    { data: loginData, loading: loginLoading, error: loginError },
+  ] = useMutation(LOGIN);
+  useEffect(() => {
+    if (loginData && loginData.login) {
+      console.log(loginData.login);
+      localStorage.setItem("token", loginData.login);
+      window.location.href = "/";
+    }
+  }, [loginData]);
+
+  const [
+    createUserFunction,
+    {
+      data: createUserData,
+      loading: createUserLoading,
+      error: createUserError,
+    },
+  ] = useMutation(CREATE_USER);
+
+  useEffect(() => {
+    if (createUserData && createUserData.createUser) {
+      console.log(createUserData.createUser);
+      localStorage.setItem("token", createUserData.createUser.token);
+      window.location.href = "/";
+    }
+  }, [createUserData]);
 
   return (
     <div>
@@ -45,8 +74,13 @@ export const Login = () => {
         >
           Login
         </button>
-        <button>
-          Create Account
+        <button
+          type="button"
+          onClick={() => {
+            createUserFunction({ variables: { email, password } });
+          }}
+        >
+          Create New Account
         </button>
       </form>
     </div>
