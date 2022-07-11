@@ -1,20 +1,7 @@
 import React from "react";
 import { useMutation, gql } from "@apollo/client";
-import {
-  Grommet,
-  Form,
-  Box,
-  Calendar,
-  DropButton,
-  Heading,
-  Stack,
-  Text,
-  FormField,
-  TextInput,
-  Button,
-  TextArea,
-} from "grommet";
-import { Close, Send, User } from "grommet-icons";
+import { Modal } from "react-bootstrap";
+
 
 export const CellForm = ({ setOpen, data }) => {
   
@@ -63,8 +50,8 @@ export const CellForm = ({ setOpen, data }) => {
     deleteDayFunction, { data: deleteDayData, loading: deleteDayLoading , error: deleteDayError },
   ] = useMutation(DELETE_DAY);
   
-  return (
-    <Form
+  return ( <div> buttons go here! </div> )};
+/*     <Form
       onSubmit={({ value }) => {
         console.log(value);
       }}
@@ -98,13 +85,13 @@ export const CellForm = ({ setOpen, data }) => {
 
       {/* <FormField name="dailyNote" htmlFor="dailyNote" label="How was your day?">
       <TextArea name="dailyNote"/>
-      </FormField> */}
+      </FormField> */
 
-      <Box direction="row" gap="medium">
+   /*    <Box direction="row" gap="medium">
         <Button type="submit" primary label="Submit" />
         <Button type="reset" label="Reset" />
         <Button type="close" onBlur={() => setOpen(false)} label="Close" />
       </Box>
-    </Form>
-  );
-};
+    </Form> */ 
+
+export default Modal;

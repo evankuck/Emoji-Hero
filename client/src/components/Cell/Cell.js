@@ -14,7 +14,7 @@ import {
   Button,
 } from "grommet";
 import { Notification } from "grommet-icons";
-import { CellForm } from "../CellForm/CellForm";
+import { CellForm } from "../Modal/Modal";
 
 export const Cell = (props) => {
   const { isSelected, onSelect, selected, date, day, hasContent, data } = props;

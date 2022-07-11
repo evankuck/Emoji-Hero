@@ -1,13 +1,8 @@
-import { CustomDayCalendar as Calendar } from '../components/Calendar/Calendar'
-import React from 'react'
-
+import  AppCalendar from "../components/Calendar/Calendar.js";
+import React from "react";
 
 function HomePage() {
-  return (
-    
-    
-    <Calendar />
-  );
+  return < AppCalendar />;
 }
 
 export default HomePage;

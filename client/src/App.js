@@ -11,14 +11,14 @@ import { gql, useQuery } from "@apollo/client";
 
 function App() {
   const ME = gql`
-  query Query($token: String!) {
-    me(token: $token) {
-      _id
-      email
-      password
-      token
+    query Query($token: String!) {
+      me(token: $token) {
+        _id
+        email
+        password
+        token
+      }
     }
-  }
   `;
 
   const { data, loading, error } = useQuery(ME, {
@@ -29,7 +29,7 @@ function App() {
 
   if (loading) return <p>Loading...</p>;
 
-  console.log({ data, error });
+  //console.log({ data, error });
   return (
     <>
       <UserContext.Provider value={data.me}>
