@@ -87,7 +87,6 @@ export const CellForm = ({ setOpen, data }) => {
             <Button 
               label="🤢"
               // U+1F922
-
             ></Button>
             <Button 
               label="🤬"
