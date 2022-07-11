@@ -73,19 +73,25 @@ export const CellForm = ({ setOpen, data }) => {
         <Box align="center" pad="large">
           <Box direction="row">
             <Button 
-              label="1"
+              label="🙂"
+              // U+1F642
             ></Button>
             <Button 
-              label="2"
+              label="😑"
+              // U+1F611
             ></Button>
             <Button 
-              label="3"
+              label="😭"
+              // U+1F62D
             ></Button>
             <Button 
-              label="4"
+              label="🤢"
+              // U+1F922
+
             ></Button>
             <Button 
-              label="5"
+              label="🤬"
+              // U+1F92C
             ></Button>
           </Box>
         </Box>
