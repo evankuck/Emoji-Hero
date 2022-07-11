@@ -19,16 +19,49 @@ import { Close, Send, User } from "grommet-icons";
 export const CellForm = ({ setOpen, data }) => {
   
   const CREATE_DAY = gql`
-  
+  mutation Mutation($emoji: String!, $date: String!, $userId: String!) {
+    createDay(emoji: $emoji, date: $date, userId: $userId) {
+      _id
+      emoji
+      date
+      userId
+    }
+  }
   `;
 
   const UPDATE_DAY = gql`
-  
+  mutation Mutation($id: String!) {
+    updateDay(_id: $id) {
+      _id
+      emoji
+      date
+      userId
+    }
+  }
   `;
   
   const DELETE_DAY = gql`
-  
+  mutation Mutation($id: String!) {
+    deleteDay(_id: $id) {
+      _id
+      emoji
+      date
+      userId
+    }
+  }
   `;
+
+  const [
+    createDayFunction, { data: createDayData, loading: createDayLoading, error: createDayError },
+  ] = useMutation(CREATE_DAY);
+
+  const [
+    updateDayFunction, { data: updateDayData, loading: updateDayLoading, error: updateDayError },
+  ] = useMutation(UPDATE_DAY);
+
+  const [
+    deleteDayFunction, { data: deleteDayData, loading: deleteDayLoading , error: deleteDayError },
+  ] = useMutation(DELETE_DAY);
   
   return (
     <Form
