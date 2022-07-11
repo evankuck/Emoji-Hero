@@ -20,8 +20,8 @@ const GET_DAYS_BY_USERID = gql`
 function AppCalendar() {
   const [date, setDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const toggleModal = () => {
-    console.log("day clicked")
+  const toggleModal = (date) => {
+    console.log(`${date.toDateString()} clicked`);
     //sets modal open to true to change state
     setIsModalOpen(!isModalOpen);
   };
@@ -31,7 +31,11 @@ function AppCalendar() {
       {isModalOpen && <Modal date={date} onClose={toggleModal} />}
       <h1 className="text-center">React Calendar</h1>
       <div className="calendar-container">
-        <Calendar onChange={setDate} value={date} onClickDay={() => toggleModal(false)} />
+        <Calendar
+          onChange={setDate}
+          value={date}
+          onClickDay={() => toggleModal(date)}
+        />
       </div>
       <p className="text-center">
         <span className="bold">Selected Date:</span> {date.toDateString()}

@@ -1,9 +1,9 @@
 import React from "react";
 import { useMutation, gql } from "@apollo/client";
-import { Modal } from "react-bootstrap";
+import './Modal.css'
 
 
-export const CellForm = ({ setOpen, data }) => {
+const Modal = ({ setOpen, data }) => {
   
   const CREATE_DAY = gql`
   mutation Mutation($emoji: String!, $date: String!, $userId: String!) {
@@ -50,7 +50,16 @@ export const CellForm = ({ setOpen, data }) => {
     deleteDayFunction, { data: deleteDayData, loading: deleteDayLoading , error: deleteDayError },
   ] = useMutation(DELETE_DAY);
   
-  return ( <div> buttons go here! </div> )};
+  return ( 
+  <div className="modalBackdrop">
+  <div className="modalContainer">buttons go here!</div> 
+  </div>
+  )
+  };
+
+
+
+
 /*     <Form
       onSubmit={({ value }) => {
         console.log(value);

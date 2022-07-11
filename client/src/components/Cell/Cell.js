@@ -14,7 +14,7 @@ import {
   Button,
 } from "grommet";
 import { Notification } from "grommet-icons";
-import { CellForm } from "../Modal/Modal";
+import Modal from "../Modal/Modal";
 
 export const Cell = (props) => {
   const { isSelected, onSelect, selected, date, day, hasContent, data } = props;
@@ -41,7 +41,7 @@ export const Cell = (props) => {
         }
         dropContent={
           <Box pad="large">
-            <CellForm data={data} />
+            <Modal data={data} />
           </Box>
         }
         dropAlign={{
