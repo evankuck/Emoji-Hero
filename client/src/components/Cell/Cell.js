@@ -26,6 +26,7 @@ export const Cell = (props) => {
       onClick={() => onSelect(date.toISOString())}
       border
       fill
+      className="calenderCell"
     >
       {/* <Stack anchor="top-right" fill> */}
 
