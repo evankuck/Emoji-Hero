@@ -7,9 +7,20 @@ export const dayResolvers = {
   },
   Mutation: {
     createDay: async (root, args) => await models.Day.create(args),
-    updateDay: async (root, args) =>
-      await models.Day.findByIdAndUpdate(args._id, args, { new: true }),
-    deleteDay: async (root, args) =>
-      await models.Day.findByIdAndDelete(args._id),
+    updateDay: async (root, args) => {
+      try {
+        const day = await models.Day.findByIdAndUpdate(args._id, args, {
+          new: true,
+        });
+        console.log({ day });
+        return day;
+      } catch (error) {
+        console.log({ error });
+        throw new Error(error);
+      }
+    },
+    deleteDay: async (root, args) => {
+      await models.Day.findByIdAndDelete(args._id);
+    },
   },
 };

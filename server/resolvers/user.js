@@ -36,3 +36,11 @@ export const userResolvers = {
 //       "email": "zparlmer@gmail.com",
 //       "password": "zzz",
 //       "token": "y64benp8v0k4lxd5gqn9d"
+
+// { 
+//   "emoji": "&#129409;",
+//   "date": "1657566356",
+//   "userId": "62c8c1bd1bca0d3e92c328f0"
+// }
+
+// "_id": "62ccc67a7cddd51973d6a06c",
