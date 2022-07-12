@@ -12,7 +12,7 @@ import {
 import { Notification } from "grommet-icons";
 import { Cell } from "../Cell/Cell";
 import { gql, useQuery } from "@apollo/client";
-import {UserContext} from '../../context/UserContext';
+import { UserContext } from "../../context/UserContext";
 const GET_DAYS_BY_USERID = gql`
   query GetDaysByUserId($userId: String!) {
     getDaysByUserId(userId: $userId) {
@@ -61,8 +61,19 @@ export const CustomDayCalendar = () => {
                 (dayFromQuery) =>
                   new Date(parseInt(dayFromQuery.date)).toDateString() ===
                   date.toDateString()
-              );
-
+              ) || {
+                emoji: "",
+                date: "",
+                userId: "",
+              };
+              console.log({
+                dayData,
+                date,
+                day,
+                isSelected,
+                hasContent,
+                onSelect,
+              });
               return (
                 <Cell
                   data={dayData}

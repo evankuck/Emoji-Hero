@@ -1,4 +1,5 @@
-import React from "react";
+import { React, useContext, useEffect, useState } from "react";
+import { useMutation, gql } from "@apollo/client";
 import {
   Grommet,
   Form,
@@ -11,37 +12,162 @@ import {
   FormField,
   TextInput,
   Button,
-  TextArea
+  TextArea,
+  RadioButton,
+  Select,
 } from "grommet";
-import { Close, Send, User } from 'grommet-icons';
+import { Close, Send, User } from "grommet-icons";
+import {UserContext} from '../../context/UserContext';
 
-export const CellForm = ({setOpen, data}) => {
+export const CellForm = ({ setOpen, data, date }) => {
+  const CREATE_DAY = gql`
+    mutation Mutation($emoji: String!, $date: String!, $userId: String!) {
+      createDay(emoji: $emoji, date: $date, userId: $userId) {
+        _id
+        emoji
+        date
+        userId
+      }
+    }
+  `;
+
+  const UPDATE_DAY = gql`
+    mutation Mutation($id: String!) {
+      updateDay(_id: $id) {
+        _id
+        emoji
+        date
+        userId
+      }
+    }
+  `;
+
+  const DELETE_DAY = gql`
+    mutation Mutation($id: String!) {
+      deleteDay(_id: $id) {
+        _id
+        emoji
+        date
+        userId
+      }
+    }
+  `;
+  const {_id: userId} = useContext(UserContext)
+
+  const [
+    createDayFunction,
+    { data: createDayData, loading: createDayLoading, error: createDayError },
+  ] = useMutation(CREATE_DAY);
+
+  const [
+    updateDayFunction,
+    { data: updateDayData, loading: updateDayLoading, error: updateDayError },
+  ] = useMutation(UPDATE_DAY);
+
+  const [
+    deleteDayFunction,
+    { data: deleteDayData, loading: deleteDayLoading, error: deleteDayError },
+  ] = useMutation(DELETE_DAY);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log("you clicked submit");
+  }
+
+  const [emoji, setEmoji] = useState("🙂");
+
+  // this is for debugging
+  useEffect(() => {
+    if (createDayError) {
+      console.log(createDayError);
+    }
+    if (updateDayError) {
+      console.log(updateDayError);
+    }
+    if (deleteDayError) {
+      console.log(deleteDayError);
+    }
+  }, [createDayError, updateDayError, deleteDayError]);
+
+  useEffect(() => {
+    if (createDayData) {
+      console.log(createDayData);
+    }
+    if (updateDayData) {
+      console.log(updateDayData);
+    }
+    if (deleteDayData) {
+      console.log(deleteDayData);
+    }
+  }, [createDayData, updateDayData, deleteDayData]);
+
   return (
     <Form
+      // value = {value}
+      // onChange = {nextValue => setValue(nextValue)}
+      // onReset = {() => setValue({})}
       onSubmit={({ value }) => {
-        console.log(value);
+        // console.log({ value, date, data });
+        if (value.emoji) {
+          createDayFunction({
+            variables: {
+              emoji: value.emoji,
+              date: date,
+              userId: userId
+            },
+          });
+        }
       }}
     >
-      <FormField name="name" htmlFor="textinput-id" label="Choose an Emoji">
-      <Box align="center" pad="large">      
-      <Box direction="row">
-        <Button label="1"></Button>
-        <Button label="2"></Button>
-        <Button label="3"></Button>
-        <Button label="4"></Button>
-        <Button label="5"></Button>
-      </Box>
-  </Box>
+      <FormField name="emoji" htmlFor="textinput-id" label="Choose an Emoji">
+        <Box align="center" pad="large">
+          <Box direction="row">
+            <Select
+              name="emoji"
+              id="select-emoji"
+              placeholder="Select an emoji"
+              options={[
+                "🙂",
+                "😑",
+                "😢",
+                "😭",
+                "😱",
+                "😳",
+                "😵",
+                "😡",
+                "😠",
+                "😤",
+              ]}
+              value={emoji}
+              onChange={({ option }) => setEmoji(option)}
+            />
+            {/* <RadioButton
+              label="🙂"
+              // U+1F642
+            ></RadioButton>
+            <RadioButton
+              label="😑"
+              // U+1F611
+            ></RadioButton>
+            <RadioButton
+              label="😭"
+              // U+1F62D
+            ></RadioButton>
+            <RadioButton
+              label="🤢"
+              // U+1F922
+            ></RadioButton>
+            <RadioButton
+              label="🤬"
+              // U+1F92C
+            ></RadioButton> */}
+          </Box>
+        </Box>
       </FormField>
-
-      <FormField name="dailyNote" htmlFor="dailyNote" label="How was your day?">
-      <TextArea name="dailyNote"/>
-      </FormField>
-    
       <Box direction="row" gap="medium">
         <Button type="submit" primary label="Submit" />
         <Button type="reset" label="Reset" />
-        <Button type="close" onBlur={() => setOpen(false)} label="Close" />
+        <Button type="button" onClick={() => setOpen(false)} label="Close" />
       </Box>
     </Form>
   );

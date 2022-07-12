@@ -32,7 +32,12 @@ function App() {
   console.log({ data, error });
   return (
     <>
-      <UserContext.Provider value={data.me}>
+      <UserContext.Provider value={data && data.me || {
+        id: null,
+        email: null,
+        password: null,
+        token: null
+      }}>
         <Router>
           <Routes>
             <Route path="/" element={<ProtectedRoute component={HomePage} />} />
