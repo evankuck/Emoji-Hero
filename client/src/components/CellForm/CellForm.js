@@ -159,14 +159,15 @@ export const CellForm = ({ setOpen, data, date }) => {
       </FormField>
       <Box direction="row" gap="medium">
         <Button type="submit" primary label="Submit" />
-        <Button type="button" label="Update" onClick={updateDayFunction({
+        <Button type="button" label="Update" onClick={(value) => updateDayFunction({
             variables: {
-              emoji: emoji,
+              emoji: value.emoji,
               date: date,
               userId: userId
             },
-          })} />
-        <Button type="button" label="Delete" onClick={deleteDayFunction({
+          },
+          setEmoji(value.emoji))} />
+        <Button type="button" label="Delete" onClick={() => deleteDayFunction({
             variables: {
               emoji:emoji,
               date: date,
