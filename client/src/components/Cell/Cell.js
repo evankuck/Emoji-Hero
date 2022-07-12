@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './Cell.css'
+import "./Cell.css";
 import {
   Grommet,
   Form,
@@ -16,18 +16,23 @@ import {
 import { Notification } from "grommet-icons";
 import { CellForm } from "../CellForm/CellForm";
 
-
 export const Cell = (props) => {
   const { isSelected, onSelect, selected, date, day, hasContent, data } = props;
 
   return (
     <Box
-      background={hasContent ? "purple" : "white"}
+      background={hasContent ? "accent-1" : "white"}
       color={hasContent ? "brand" : "text-dark-1"}
       onClick={() => onSelect(date.toISOString())}
+      onHov
       border
       fill
-      className="calenderCell"
+      hoverIndicator={{
+        background: {
+          color: "background-contrast",
+        },
+        elevation: "medium",
+      }}
     >
       {/* <Stack anchor="top-right" fill> */}
 
