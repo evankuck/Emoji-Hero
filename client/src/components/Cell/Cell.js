@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import './Cell.css'
 import {
   Grommet,
   Form,
@@ -15,6 +15,7 @@ import {
 } from "grommet";
 import { Notification } from "grommet-icons";
 import { CellForm } from "../CellForm/CellForm";
+
 
 export const Cell = (props) => {
   const { isSelected, onSelect, selected, date, day, hasContent, data } = props;

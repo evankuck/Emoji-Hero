@@ -8,6 +8,7 @@ import {
   Heading,
   Stack,
   Text,
+  deepMerge
 } from "grommet";
 import { Notification } from "grommet-icons";
 import { Cell } from "../Cell/Cell";
@@ -44,12 +45,13 @@ export const CustomDayCalendar = () => {
     setSelectedDay(value);
   };
 
+
   return (
     <Grommet>
       <Box>
         <Box align="center" pad="large">
           <Heading level={4}>Test Calendar</Heading>
-          <Calendar size="medium" date={selectedDay} showAdjacentDays={"trim"} fill>
+          <Calendar daysOfWeek="true" size="medium" date={selectedDay} showAdjacentDays={"trim"} fill>
             {({ date, day, isSelected }) => {
               // hasContent is a boolean that determines if there is a day with a date property that matches the date of the day in the iteration.
               const hasContent = getDaysByUserId
