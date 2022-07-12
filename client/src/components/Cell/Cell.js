@@ -41,7 +41,7 @@ export const Cell = (props) => {
         }
         dropContent={
           <Box pad="large">
-            <CellForm data={data} />
+            <CellForm data={data} date={date} />
           </Box>
         }
         dropAlign={{
