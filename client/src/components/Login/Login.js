@@ -66,7 +66,7 @@ export const Login = () => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <button
+        <button className="loginBtn"
           onClick={() => {
             console.log({ email, password });
             loginFunction({ variables: { email, password } });
@@ -75,7 +75,7 @@ export const Login = () => {
         >
           Login
         </button>
-        <button
+        <button className="loginBtn"
           type="button"
           onClick={() => {
             createUserFunction({ variables: { email, password } });
