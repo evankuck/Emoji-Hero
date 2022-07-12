@@ -66,14 +66,14 @@ export const CustomDayCalendar = () => {
                 date: "",
                 userId: "",
               };
-              console.log({
-                dayData,
-                date,
-                day,
-                isSelected,
-                hasContent,
-                onSelect,
-              });
+              // console.log({
+              //   dayData,
+              //   date,
+              //   day,
+              //   isSelected,
+              //   hasContent,
+              //   onSelect,
+              // });
               return (
                 <Cell
                   data={dayData}

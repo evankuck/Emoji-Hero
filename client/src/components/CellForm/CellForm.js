@@ -17,7 +17,7 @@ import {
   Select,
 } from "grommet";
 import { Close, Send, User } from "grommet-icons";
-import {UserContext} from '../../context/UserContext';
+import { UserContext } from "../../context/UserContext";
 
 export const CellForm = ({ setOpen, data, date }) => {
   const CREATE_DAY = gql`
@@ -52,7 +52,7 @@ export const CellForm = ({ setOpen, data, date }) => {
       }
     }
   `;
-  const {_id: userId} = useContext(UserContext)
+  const { _id: userId } = useContext(UserContext);
 
   const [
     createDayFunction,
@@ -107,13 +107,19 @@ export const CellForm = ({ setOpen, data, date }) => {
       // onChange = {nextValue => setValue(nextValue)}
       // onReset = {() => setValue({})}
       onSubmit={({ value }) => {
-        // console.log({ value, date, data });
-        if (value.emoji) {
+        if (data._id) {
+          updateDayFunction({
+            variables: {
+              id: data._id,
+              emoji: emoji,
+            },
+          });
+        } else if (emoji) {
           createDayFunction({
             variables: {
-              emoji: value.emoji,
+              emoji: emoji,
               date: date,
-              userId: userId
+              userId: userId,
             },
           });
         }
@@ -139,34 +145,20 @@ export const CellForm = ({ setOpen, data, date }) => {
                 "😤",
               ]}
               value={emoji}
-              onChange={({ option }) => setEmoji(option)}
+              onChange={({ option }) => {
+                console.log(option);
+                setEmoji(option);
+              }}
             />
-            {/* <RadioButton
-              label="🙂"
-              // U+1F642
-            ></RadioButton>
-            <RadioButton
-              label="😑"
-              // U+1F611
-            ></RadioButton>
-            <RadioButton
-              label="😭"
-              // U+1F62D
-            ></RadioButton>
-            <RadioButton
-              label="🤢"
-              // U+1F922
-            ></RadioButton>
-            <RadioButton
-              label="🤬"
-              // U+1F92C
-            ></RadioButton> */}
           </Box>
         </Box>
       </FormField>
       <Box direction="row" gap="medium">
-        <Button type="submit" primary label="Submit" />
-        <Button type="reset" label="Reset" />
+        {/* <Button type="submit" primary label="Submit" />
+        <Button type="reset" label="Reset" /> */}
+        <Button type="button" onClick={() => setOpen(false)} label="Close"></Button>
+        <Button></Button>
+        <Button></Button>
         <Button type="button" onClick={() => setOpen(false)} label="Close" />
       </Box>
     </Form>
