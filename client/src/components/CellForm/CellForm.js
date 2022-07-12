@@ -100,7 +100,8 @@ export const CellForm = ({ setOpen, data, date }) => {
       console.log(deleteDayData);
     }
   }, [createDayData, updateDayData, deleteDayData]);
-
+ 
+ 
   return (
     <Form
       // value = {value}
@@ -124,6 +125,7 @@ export const CellForm = ({ setOpen, data, date }) => {
           });
         }
       }}
+      
     >
       <FormField name="emoji" htmlFor="textinput-id" label="Choose an Emoji">
         <Box align="center" pad="large">
@@ -154,11 +156,22 @@ export const CellForm = ({ setOpen, data, date }) => {
         </Box>
       </FormField>
       <Box direction="row" gap="medium">
-        {/* <Button type="submit" primary label="Submit" />
-        <Button type="reset" label="Reset" /> */}
-        <Button type="button" onClick={() => setOpen(false)} label="Close"></Button>
-        <Button></Button>
-        <Button></Button>
+        <Button type="submit" primary label="Submit" />
+        <Button type="button" label="Update" onClick={updateDayFunction({
+            variables: {
+              emoji: emoji,
+              date: date,
+              userId: userId
+            },
+          })} />
+        <Button type="button" label="Delete" onClick={deleteDayFunction({
+            variables: {
+              emoji:emoji,
+              date: date,
+              userId: userId
+            },
+          })}
+           />
         <Button type="button" onClick={() => setOpen(false)} label="Close" />
       </Box>
     </Form>
