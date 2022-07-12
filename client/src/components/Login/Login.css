@@ -23,7 +23,7 @@ input {
     display: block;
 }
 
-button {
+.loginBtn {
     padding: 5px;
     text-align: center;
     margin: 10px auto;
@@ -34,7 +34,7 @@ button {
     display: block;
 }
 
-button:hover {
+.loginBtn:hover{
     background-color: rgb(103, 3, 189);
     color: whitesmoke;
     cursor: pointer;
