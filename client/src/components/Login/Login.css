@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+.loginContainer {
+width: 45%;
+margin: 20px auto;
+background-color: rgb(97, 255, 202);
+padding: 50px;
+position: relative;
+vertical-align: middle;
+}
+
+.loginContainer h1 {
+    text-align: center;
+}
+
+input {
+    width:200px;
+    height: 40px;
+    margin: 10px auto;
+    display: block;
+}
+
+.loginBtn {
+    padding: 5px;
+    text-align: center;
+    margin: 10px auto;
+    width: 200px;
+    border: 2px solid rgb(103, 3, 189);
+    border-radius: 20px;
+    background-color: whitesmoke;
+    display: block;
+}
+
+.loginBtn:hover{
+    background-color: rgb(103, 3, 189);
+    color: whitesmoke;
+    cursor: pointer;
+}
