@@ -27,6 +27,8 @@ export const Cell = (props) => {
       onHov
       border
       fill
+  
+    
       hoverIndicator={{
         background: {
           color: "background-contrast",

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMutation, gql } from "@apollo/client";
+import'./Login.css'
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,8 +49,8 @@ export const Login = () => {
   }, [createUserData]);
 
   return (
-    <div>
-      <h1>Enter Email and Password</h1>
+    <div className="loginContainer">
+      <h1>Welcome to Emoji Hero 🦸🏻‍♀️✨</h1>
       <form>
         <input
           name="email"
