@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { deepMerge } from 'grommet/utils'
+
 import {
   Grommet,
   Box,
@@ -8,7 +8,7 @@ import {
   Heading,
   Stack,
   Text,
-  grommet
+  Button
 } from "grommet";
 import { Notification } from "grommet-icons";
 import { Cell } from "../Cell/Cell";
@@ -45,15 +45,13 @@ export const CustomDayCalendar = () => {
     setSelectedDay(value);
   };
 
- 
-
-
   return (
     <Grommet>
-      <Box fill>
+      <Box>
         <Box align="center" pad="large">
-          <Heading level={1}>Emoji Hero</Heading>
-          <Calendar daysOfWeek="true" size="medium" date={selectedDay} showAdjacentDays={"trim"} fill >
+          <Heading level={4}>Test Calendar</Heading>
+          <Button>Logout</Button>        
+          <Calendar date={selectedDay} showAdjacentDays={"trim"} fill>
             {({ date, day, isSelected }) => {
               // hasContent is a boolean that determines if there is a day with a date property that matches the date of the day in the iteration.
               const hasContent = getDaysByUserId

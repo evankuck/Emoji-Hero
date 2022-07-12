@@ -19,7 +19,8 @@ import {
 import { Close, Send, User } from "grommet-icons";
 import { UserContext } from "../../context/UserContext";
 
-export const CellForm = ({ setOpen, data, date }) => {
+export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
+  const [cellData, setCellData] = useState({...data});
   const CREATE_DAY = gql`
     mutation Mutation($emoji: String!, $date: String!, $userId: String!) {
       createDay(emoji: $emoji, date: $date, userId: $userId) {
@@ -32,8 +33,8 @@ export const CellForm = ({ setOpen, data, date }) => {
   `;
 
   const UPDATE_DAY = gql`
-    mutation Mutation($id: String!) {
-      updateDay(_id: $id) {
+    mutation Mutation($emoji: String, $id: String!) {
+      updateDay(emoji: $emoji, _id: $id) {
         _id
         emoji
         date
@@ -74,7 +75,7 @@ export const CellForm = ({ setOpen, data, date }) => {
     console.log("you clicked submit");
   }
 
-  const [emoji, setEmoji] = useState("🙂");
+  // const [emoji, setEmoji] = useState("🙂");
 
   // this is for debugging
   useEffect(() => {
@@ -91,7 +92,9 @@ export const CellForm = ({ setOpen, data, date }) => {
 
   useEffect(() => {
     if (createDayData) {
+      
       console.log(createDayData);
+      setCellData(createDayData.createDay)
     }
     if (updateDayData) {
       console.log(updateDayData);
@@ -100,38 +103,13 @@ export const CellForm = ({ setOpen, data, date }) => {
       console.log(deleteDayData);
     }
   }, [createDayData, updateDayData, deleteDayData]);
- 
- 
+
   return (
-    <Form
-      // value = {value}
-      // onChange = {nextValue => setValue(nextValue)}
-      // onReset = {() => setValue({})}
-      onSubmit={({ value }) => {
-        if (data._id) {
-          updateDayFunction({
-            variables: {
-              id: data._id,
-              emoji: emoji,
-            },
-          });
-        } else if (emoji) {
-          createDayFunction({
-            variables: {
-              emoji: emoji,
-              date: date,
-              userId: userId,
-            },
-          });
-        }
-      }}
-      
-    >
+    <Form>
       <FormField name="emoji" htmlFor="textinput-id" label="Choose an Emoji">
-      <Text>{`${date.toDateString()}`}</Text>
+        <Text>{`${date.toDateString()}`}</Text>
         <Box align="center" pad="large">
           <Box direction="row">
-            
             <Select
               name="emoji"
               id="select-emoji"
@@ -158,23 +136,41 @@ export const CellForm = ({ setOpen, data, date }) => {
         </Box>
       </FormField>
       <Box direction="row" gap="medium">
-        <Button type="submit" primary label="Submit" />
-        <Button type="button" label="Update" onClick={(value) => updateDayFunction({
-            variables: {
-              emoji: value.emoji,
-              date: date,
-              userId: userId
-            },
-          },
-          setEmoji(value.emoji))} />
-        <Button type="button" label="Delete" onClick={() => deleteDayFunction({
-            variables: {
-              emoji:emoji,
-              date: date,
-              userId: userId
-            },
-          })}
-           />
+        <Button
+          type="button"
+          primary
+          label="Submit"
+          onClick={() => {
+            if (data._id) {
+              updateDayFunction({
+                variables: {
+                  id: data._id,
+                  emoji: emoji,
+                },
+              });
+            } else if (emoji) {
+              createDayFunction({
+                variables: {
+                  emoji: emoji,
+                  date: date,
+                  userId: userId,
+                },
+              });
+            }
+            setOpen(false);
+          }}
+        />
+        <Button
+          type="button"
+          label="Delete"
+          onClick={() =>
+            deleteDayFunction({
+              variables: {
+                id: data._id
+              },
+            })
+          }
+        />
         <Button type="button" onClick={() => setOpen(false)} label="Close" />
       </Box>
     </Form>
