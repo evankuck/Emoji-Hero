@@ -54,7 +54,7 @@ export const Cell = (props) => {
           </Box>
         }
         dropAlign={{
-          top: "bottom",
+          top: "top",
         }}
       />
       {/* ) : null} */}

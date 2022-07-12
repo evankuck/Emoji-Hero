@@ -122,8 +122,10 @@ export const CellForm = ({ setOpen, data, date }) => {
       
     >
       <FormField name="emoji" htmlFor="textinput-id" label="Choose an Emoji">
+      <Text>{`${date.toDateString()}`}</Text>
         <Box align="center" pad="large">
           <Box direction="row">
+            
             <Select
               name="emoji"
               id="select-emoji"
