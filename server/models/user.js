@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import jwt from 'jsonwebtoken';
 const { Schema, model } = mongoose;
 const UserSchema = new Schema({
   email: {
@@ -24,15 +25,24 @@ const UserSchema = new Schema({
 });
 
 UserSchema.pre("save", function (next) {
-  this.generateToken();
+  // encrypt password
   next();
 });
 
 UserSchema.methods.generateToken = function () {
-  const token =
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
+  console.log("creating token for user", this.email);
+  const token = jwt.sign(
+    {
+      id: this._id,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1h",
+    }
+  );
+  console.log(token)
   this.token = token;
+  this.save()
   return token;
 };
 

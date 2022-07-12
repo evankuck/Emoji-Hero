@@ -22,7 +22,8 @@ export const userResolvers = {
         if (user.password !== args.password) {
           console.log("Password is incorrect");
         }
-        return user.token;
+        const token = user.generateToken() 
+        return token;
       } catch (error) {
         console.log(error);
       }

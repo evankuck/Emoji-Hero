@@ -11,7 +11,7 @@ import { gql, useQuery } from "@apollo/client";
 
 function App() {
   const ME = gql`
-  query Query($token: String!) {
+  query Me($token: String!) {
     me(token: $token) {
       _id
       email
@@ -23,7 +23,7 @@ function App() {
 
   const { data, loading, error } = useQuery(ME, {
     variables: {
-      token: localStorage.getItem("token") || "",
+      token: localStorage.getItem("token"),
     },
   });
 
@@ -32,12 +32,7 @@ function App() {
   console.log({ data, error });
   return (
     <>
-      <UserContext.Provider value={data && data.me || {
-        id: null,
-        email: null,
-        password: null,
-        token: null
-      }}>
+      <UserContext.Provider value={data && data.me && data.me.token.length ? { ...data.me } : null}>
         <Router>
           <Routes>
             <Route path="/" element={<ProtectedRoute component={HomePage} />} />

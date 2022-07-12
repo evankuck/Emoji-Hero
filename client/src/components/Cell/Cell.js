@@ -25,7 +25,6 @@ export const Cell = (props) => {
       background={hasContent || emoji ? "accent-1" : "white"}
       color={hasContent || emoji ? "brand" : "text-dark-1"}
       onClick={() => onSelect(date.toISOString())}
-      onHov
       border
       fill
       hoverIndicator={{
