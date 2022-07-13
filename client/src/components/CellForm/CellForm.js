@@ -75,6 +75,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
     console.log("you clicked submit");
   }
 
+  const [text, setText] = useState("");
   // const [emoji, setEmoji] = useState("🙂");
 
   // this is for debugging
@@ -107,6 +108,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
   return (
     <Form>
       <FormField name="emoji" htmlFor="textinput-id" label="Choose an Emoji">
+        <TextInput placeholder="I'm feeling..." value={text} onChange={event => setText(event.target.value)} />;
         <Text>{`${date.toDateString()}`}</Text>
         <Box align="center" pad="large">
           <Box direction="row">
@@ -146,6 +148,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
                 variables: {
                   id: data._id,
                   emoji: emoji,
+                  text: text
                 },
               });
             } else if (emoji) {
@@ -154,6 +157,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
                   emoji: emoji,
                   date: date,
                   userId: userId,
+                  text: text,
                 },
               });
             }
