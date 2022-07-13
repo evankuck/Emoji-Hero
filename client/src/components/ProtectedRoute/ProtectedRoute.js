@@ -6,7 +6,7 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
   const user = useContext(UserContext)
   console.log(user)
   function hasToken() {
-    const { token } = user
+    const { token } = user;
     return token !== null;
   }
 
