@@ -63,7 +63,7 @@ export const CustomDayCalendar = () => {
             date={selectedDay}
             showAdjacentDays={"trim"}
             fill
-            daysOfWeek="true"
+            daysOfWeek={true}
           >
             {({ date, day, isSelected }) => {
               // hasContent is a boolean that determines if there is a day with a date property that matches the date of the day in the iteration.

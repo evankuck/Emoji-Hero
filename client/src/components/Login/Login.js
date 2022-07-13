@@ -43,7 +43,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (createUserData && createUserData.createUser) {
-      console.log(createUserData.createUser);
+      console.log("userEffectToken", createUserData.createUser);
       localStorage.setItem("token", createUserData.createUser.token);
       window.location.href = "/";
     }
