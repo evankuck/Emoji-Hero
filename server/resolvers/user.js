@@ -12,7 +12,15 @@ export const userResolvers = {
     },
   },
   Mutation: {
-    createUser: async (root, args) => await models.User.create(args),
+    createUser: async (root, args) => {
+      try {
+        const user = await models.User.create(args)
+        const token = user.generateToken() 
+        return {...user, token}
+      } catch (error) {
+        console.log(error);
+      }
+    },
     login: async (root, args) => {
       try {
         const user = await models.User.findOne({ email: args.email });
