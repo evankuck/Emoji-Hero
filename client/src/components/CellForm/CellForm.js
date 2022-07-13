@@ -22,23 +22,26 @@ import { UserContext } from "../../context/UserContext";
 export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
   const [cellData, setCellData] = useState({...data});
   const CREATE_DAY = gql`
-    mutation Mutation($emoji: String!, $date: String!, $userId: String!) {
-      createDay(emoji: $emoji, date: $date, userId: $userId) {
+    mutation CreateDay($emoji: String!, $date: String!, $userId: String!, $text: String!) {
+      createDay(emoji: $emoji, date: $date, userId: $userId, text: $text) {
         _id
         emoji
         date
         userId
-      }
+        text
     }
+  }
+  
   `;
 
   const UPDATE_DAY = gql`
-    mutation Mutation($emoji: String, $id: String!) {
-      updateDay(emoji: $emoji, _id: $id) {
+    mutation Mutation($emoji: String, $id: String!, $text: String!) {
+      updateDay(emoji: $emoji, _id: $id, text: $text) {
         _id
         emoji
         date
         userId
+        text
       }
     }
   `;
