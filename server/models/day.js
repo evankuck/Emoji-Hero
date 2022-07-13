@@ -8,6 +8,7 @@ const DaySchema = new Schema({
     date: {
         type: Date,
         required: true,
+        unique: true,
     },
     userId : {
         type: mongoose.Schema.Types.ObjectId,
