@@ -45,7 +45,7 @@ export const CustomDayCalendar = () => {
     setSelectedDay(value);
   };
 
-  logoutFunction = () => localStorage.removeItem('token');
+  const logoutFunction = () => localStorage.removeItem('token');
 
   return (
     <Grommet>
