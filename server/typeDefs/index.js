@@ -14,6 +14,7 @@ export const typeDefs = gql`
         emoji: String!
         date: String!
         userId: String!
+        text: String!
     }
 
     type Query {
