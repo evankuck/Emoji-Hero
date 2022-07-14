@@ -70,11 +70,6 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
     { data: deleteDayData, loading: deleteDayLoading, error: deleteDayError },
   ] = useMutation(DELETE_DAY);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log("you clicked submit");
-  }
-
   // const [emoji, setEmoji] = useState("🙂");
 
   // this is for debugging

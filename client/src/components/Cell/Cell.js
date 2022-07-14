@@ -7,13 +7,12 @@ import {
   Calendar,
   DropButton,
   Heading,
-  Stack,
+  
   Text,
   FormField,
   TextInput,
   Button,
 } from "grommet";
-import { Notification } from "grommet-icons";
 import { CellForm } from "../CellForm/CellForm";
 
 export const Cell = (props) => {
