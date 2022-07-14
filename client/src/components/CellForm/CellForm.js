@@ -20,7 +20,7 @@ import { Close, Send, User } from "grommet-icons";
 import { UserContext } from "../../context/UserContext";
 
 export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
-  const [cellData, setCellData] = useState({...data});
+  const [cellData, setCellData] = useState({ ...data });
   const CREATE_DAY = gql`
     mutation CreateDay($emoji: String!, $date: String!, $userId: String!, $text: String!) {
       createDay(emoji: $emoji, date: $date, userId: $userId, text: $text) {
@@ -78,7 +78,10 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
     console.log("you clicked submit");
   }
 
-  const [text, setText] = useState("");
+  if (data) {
+    console.log(data)
+  }
+  const [text, setText] = useState(data && data.text ? data.text : "");
   // const [emoji, setEmoji] = useState("🙂");
 
   // this is for debugging
@@ -96,7 +99,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
 
   useEffect(() => {
     if (createDayData) {
-      
+
       console.log(createDayData);
       setCellData(createDayData.createDay)
     }
@@ -154,7 +157,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
                   text: text
                 },
               });
-            } else if (emoji) {
+            } else if (emoji && text) {
               createDayFunction({
                 variables: {
                   emoji: emoji,
@@ -164,6 +167,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
                 },
               });
             }
+            console.log({ emoji, text });
             setOpen(false);
           }}
         />

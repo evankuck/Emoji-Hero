@@ -15,14 +15,15 @@ import { Cell } from "../Cell/Cell";
 import { gql, useQuery } from "@apollo/client";
 import { UserContext } from "../../context/UserContext";
 const GET_DAYS_BY_USERID = gql`
-  query GetDaysByUserId($userId: String!) {
-    getDaysByUserId(userId: $userId) {
-      _id
-      emoji
-      date
-      userId
-    }
+query GetDaysByUserId($userId: String!) {
+  getDaysByUserId(userId: $userId) {
+    _id
+    emoji
+    date
+    userId
+    text
   }
+}
 `;
 
 export const CustomDayCalendar = () => {
@@ -35,6 +36,7 @@ export const CustomDayCalendar = () => {
     },
   });
   if (loading) return <p>Loading...</p>;
+  console.log({data, loading, error});
   const { getDaysByUserId } = data; // getDaysByUserId is an array of objects
   //   console.log(getDaysByUserId);
 
