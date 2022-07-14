@@ -114,7 +114,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
   return (
     <Form>
       <FormField name="emoji" htmlFor="textinput-id" label="Choose an Emoji">
-        <TextInput placeholder="I'm feeling..." value={text} onChange={event => setText(event.target.value)} />;
+        <TextInput placeholder="I'm feeling..." value={text} onChange={event => setText(event.target.value)} />
         <Text>{`${date.toDateString()}`}</Text>
         <Box align="center" pad="large">
           <Box direction="row">

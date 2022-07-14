@@ -52,7 +52,10 @@ export const CustomDayCalendar = () => {
       <Box>
         <Box align="center" pad="large">
           <Heading level={4}>Test Calendar</Heading>
-          <Button>Logout</Button>        
+          <Button onClick={() => {
+              localStorage.removeItem("token");
+              window.location.href = "/";
+            }}>Logout</Button>        
           <Calendar date={selectedDay} showAdjacentDays={"trim"} fill>
             {({ date, day, isSelected }) => {
               // hasContent is a boolean that determines if there is a day with a date property that matches the date of the day in the iteration.
