@@ -31,6 +31,10 @@ To run the project on your local machine
   npm start
 ```
 # Screenshots
+![emojiHero](https://user-images.githubusercontent.com/95111100/179084476-7df52f06-72b3-4de8-b094-41a5a4e4e2a9.png)
+![Screen Shot 2022-07-14 at 2 05 48 PM](https://user-images.githubusercontent.com/95111100/179084505-9075d219-b168-4d4f-b39a-cd311a6048fd.png)
+![Screen Shot 2022-07-14 at 2 06 09 PM](https://user-images.githubusercontent.com/95111100/179084530-5e26caef-11ee-4ffc-b0bb-39b3786abca1.png)
+
 
 # Authors
 - [Thomas Parlmer](https://github.com/tparlmer)
