@@ -20,25 +20,28 @@ import { Close, Send, User } from "grommet-icons";
 import { UserContext } from "../../context/UserContext";
 
 export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
-  const [cellData, setCellData] = useState({...data});
+  const [cellData, setCellData] = useState({ ...data });
   const CREATE_DAY = gql`
-    mutation Mutation($emoji: String!, $date: String!, $userId: String!) {
-      createDay(emoji: $emoji, date: $date, userId: $userId) {
+    mutation CreateDay($emoji: String!, $date: String!, $userId: String!, $text: String!) {
+      createDay(emoji: $emoji, date: $date, userId: $userId, text: $text) {
         _id
         emoji
         date
         userId
-      }
+        text
     }
+  }
+  
   `;
 
   const UPDATE_DAY = gql`
-    mutation Mutation($emoji: String, $id: String!) {
-      updateDay(emoji: $emoji, _id: $id) {
+    mutation Mutation($emoji: String, $id: String!, $text: String!) {
+      updateDay(emoji: $emoji, _id: $id, text: $text) {
         _id
         emoji
         date
         userId
+        text
       }
     }
   `;
@@ -75,6 +78,10 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
     console.log("you clicked submit");
   }
 
+  if (data) {
+    console.log(data)
+  }
+  const [text, setText] = useState(data && data.text ? data.text : "");
   // const [emoji, setEmoji] = useState("🙂");
 
   // this is for debugging
@@ -92,7 +99,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
 
   useEffect(() => {
     if (createDayData) {
-      
+
       console.log(createDayData);
       setCellData(createDayData.createDay)
     }
@@ -107,6 +114,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
   return (
     <Form>
       <FormField name="emoji" htmlFor="textinput-id" label="Choose an Emoji">
+        <TextInput placeholder="I'm feeling..." value={text} onChange={event => setText(event.target.value)} />
         <Text>{`${date.toDateString()}`}</Text>
         <Box align="center" pad="large">
           <Box direction="row">
@@ -146,17 +154,20 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
                 variables: {
                   id: data._id,
                   emoji: emoji,
+                  text: text
                 },
               });
-            } else if (emoji) {
+            } else if (emoji && text) {
               createDayFunction({
                 variables: {
                   emoji: emoji,
                   date: date,
                   userId: userId,
+                  text: text,
                 },
               });
             }
+            console.log({ emoji, text });
             setOpen(false);
           }}
         />

@@ -15,14 +15,15 @@ import { Cell } from "../Cell/Cell";
 import { gql, useQuery } from "@apollo/client";
 import { UserContext } from "../../context/UserContext";
 const GET_DAYS_BY_USERID = gql`
-  query GetDaysByUserId($userId: String!) {
-    getDaysByUserId(userId: $userId) {
-      _id
-      emoji
-      date
-      userId
-    }
+query GetDaysByUserId($userId: String!) {
+  getDaysByUserId(userId: $userId) {
+    _id
+    emoji
+    date
+    userId
+    text
   }
+}
 `;
 
 export const CustomDayCalendar = () => {
@@ -35,7 +36,11 @@ export const CustomDayCalendar = () => {
     },
   });
   if (loading) return <p>Loading...</p>;
+<<<<<<< HEAD
 
+=======
+  console.log({data, loading, error});
+>>>>>>> feature/text-input
   const { getDaysByUserId } = data; // getDaysByUserId is an array of objects
   //   console.log(getDaysByUserId);
 
@@ -50,6 +55,7 @@ export const CustomDayCalendar = () => {
     <Grommet>
       <Box>
         <Box align="center" pad="large">
+<<<<<<< HEAD
           <Heading level={4}>Emoji Hero</Heading>
           <Button
             onClick={() => {
@@ -65,6 +71,14 @@ export const CustomDayCalendar = () => {
             fill
             daysOfWeek={true}
           >
+=======
+          <Heading level={4}>Test Calendar</Heading>
+          <Button onClick={() => {
+              localStorage.removeItem("token");
+              window.location.href = "/";
+            }}>Logout</Button>        
+          <Calendar date={selectedDay} showAdjacentDays={"trim"} fill>
+>>>>>>> feature/text-input
             {({ date, day, isSelected }) => {
               // hasContent is a boolean that determines if there is a day with a date property that matches the date of the day in the iteration.
               const hasContent = getDaysByUserId
