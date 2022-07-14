@@ -23,6 +23,10 @@ const server = new ApolloServer({
     typeDefs,
     resolvers
 })
+
+const startApolloServer = async(typeDefs, resolvers) => {
+
+
 await server.start()
 
 server.applyMiddleware({ app })
@@ -31,3 +35,6 @@ if (connection) {
         console.log("listening on port " + PORT)
     })
 }
+}
+
+startApolloServer(typeDefs, resolvers)

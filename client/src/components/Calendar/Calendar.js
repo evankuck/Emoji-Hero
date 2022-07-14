@@ -4,26 +4,30 @@ import {
   Grommet,
   Box,
   Calendar,
-  DropButton,
   Heading,
-  Stack,
-  Text,
   Button,
+  Header
 } from "grommet";
-import { Notification } from "grommet-icons";
+
 import { Cell } from "../Cell/Cell";
 import { gql, useQuery } from "@apollo/client";
 import { UserContext } from "../../context/UserContext";
+
+
+
 const GET_DAYS_BY_USERID = gql`
-  query GetDaysByUserId($userId: String!) {
-    getDaysByUserId(userId: $userId) {
-      _id
-      emoji
-      date
-      userId
-    }
+query GetDaysByUserId($userId: String!) {
+  getDaysByUserId(userId: $userId) {
+    _id
+    emoji
+    date
+    userId
+    text
   }
+}
 `;
+
+
 
 export const CustomDayCalendar = () => {
   const [selectedDay, setSelectedDay] = useState();
@@ -35,7 +39,7 @@ export const CustomDayCalendar = () => {
     },
   });
   if (loading) return <p>Loading...</p>;
-
+  console.log({data, loading, error});
   const { getDaysByUserId } = data; // getDaysByUserId is an array of objects
   //   console.log(getDaysByUserId);
 
@@ -49,16 +53,25 @@ export const CustomDayCalendar = () => {
   return (
     <Grommet>
       <Box>
-        <Box align="center" pad="large">
-          <Heading level={4}>Emoji Hero</Heading>
+      <Header background="accent-1" pad="small">
+          <Heading level={4}>Emoji Hero🦸🏻‍♀️✨</Heading>
+          <Box justify="end">
           <Button
+          className="logoutBtn"
+          primary
+          justify="end"
+          label="Logout"
             onClick={() => {
               localStorage.removeItem("token");
               window.location.href = "/login";
             }}
           >
-            Logout
+            
           </Button>
+          </Box>
+          
+          </Header>
+        <Box align="center" pad="large">
           <Calendar
             date={selectedDay}
             showAdjacentDays={"trim"}

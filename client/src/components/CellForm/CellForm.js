@@ -1,44 +1,32 @@
 import { React, useContext, useEffect, useState } from "react";
 import { useMutation, gql } from "@apollo/client";
-import {
-  Grommet,
-  Form,
-  Box,
-  Calendar,
-  DropButton,
-  Heading,
-  Stack,
-  Text,
-  FormField,
-  TextInput,
-  Button,
-  TextArea,
-  RadioButton,
-  Select,
-} from "grommet";
-import { Close, Send, User } from "grommet-icons";
+import { Form, Box, Text, FormField, Button, Select, TextInput } from "grommet";
+
 import { UserContext } from "../../context/UserContext";
 
 export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
-  const [cellData, setCellData] = useState({...data});
+  const [cellData, setCellData] = useState({ ...data });
   const CREATE_DAY = gql`
-    mutation Mutation($emoji: String!, $date: String!, $userId: String!) {
-      createDay(emoji: $emoji, date: $date, userId: $userId) {
+    mutation CreateDay($emoji: String!, $date: String!, $userId: String!, $text: String!) {
+      createDay(emoji: $emoji, date: $date, userId: $userId, text: $text) {
         _id
         emoji
         date
         userId
-      }
+        text
     }
+  }
+  
   `;
 
   const UPDATE_DAY = gql`
-    mutation Mutation($emoji: String, $id: String!) {
-      updateDay(emoji: $emoji, _id: $id) {
+    mutation Mutation($emoji: String, $id: String!, $text: String!) {
+      updateDay(emoji: $emoji, _id: $id, text: $text) {
         _id
         emoji
         date
         userId
+        text
       }
     }
   `;
@@ -70,10 +58,12 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
     { data: deleteDayData, loading: deleteDayLoading, error: deleteDayError },
   ] = useMutation(DELETE_DAY);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log("you clicked submit");
+
+
+  if (data) {
+    console.log(data)
   }
+  const [text, setText] = useState(data && data.text ? data.text : "");
 
   // const [emoji, setEmoji] = useState("🙂");
 
@@ -92,9 +82,9 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
 
   useEffect(() => {
     if (createDayData) {
-      
+
       console.log(createDayData);
-      setCellData(createDayData.createDay)
+      setCellData(createDayData.createDay);
     }
     if (updateDayData) {
       console.log(updateDayData);
@@ -105,8 +95,10 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
   }, [createDayData, updateDayData, deleteDayData]);
 
   return (
+    
     <Form>
       <FormField name="emoji" htmlFor="textinput-id" label="Choose an Emoji">
+        <TextInput placeholder="I'm feeling..." value={text} onChange={event => setText(event.target.value)} />
         <Text>{`${date.toDateString()}`}</Text>
         <Box align="center" pad="large">
           <Box direction="row">
@@ -146,17 +138,20 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
                 variables: {
                   id: data._id,
                   emoji: emoji,
+                  text: text
                 },
               });
-            } else if (emoji) {
+            } else if (emoji && text) {
               createDayFunction({
                 variables: {
                   emoji: emoji,
                   date: date,
                   userId: userId,
+                  text: text,
                 },
               });
             }
+            console.log({ emoji, text });
             setOpen(false);
           }}
         />
@@ -166,7 +161,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
           onClick={() =>
             deleteDayFunction({
               variables: {
-                id: data._id
+                id: data._id,
               },
             })
           }
@@ -174,5 +169,6 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
         <Button type="button" onClick={() => setOpen(false)} label="Close" />
       </Box>
     </Form>
+    
   );
 };
