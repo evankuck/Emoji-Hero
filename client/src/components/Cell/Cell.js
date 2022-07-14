@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Cell.css";
+
 import { Grommet, Box, DropButton, Heading, Text } from "grommet";
 import { CellForm } from "../CellForm/CellForm";
 
