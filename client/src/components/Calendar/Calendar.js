@@ -36,11 +36,7 @@ export const CustomDayCalendar = () => {
     },
   });
   if (loading) return <p>Loading...</p>;
-<<<<<<< HEAD
-
-=======
   console.log({data, loading, error});
->>>>>>> feature/text-input
   const { getDaysByUserId } = data; // getDaysByUserId is an array of objects
   //   console.log(getDaysByUserId);
 
@@ -55,30 +51,12 @@ export const CustomDayCalendar = () => {
     <Grommet>
       <Box>
         <Box align="center" pad="large">
-<<<<<<< HEAD
-          <Heading level={4}>Emoji Hero</Heading>
-          <Button
-            onClick={() => {
-              localStorage.removeItem("token");
-              window.location.href = "/login";
-            }}
-          >
-            Logout
-          </Button>
-          <Calendar
-            date={selectedDay}
-            showAdjacentDays={"trim"}
-            fill
-            daysOfWeek={true}
-          >
-=======
           <Heading level={4}>Test Calendar</Heading>
           <Button onClick={() => {
               localStorage.removeItem("token");
               window.location.href = "/";
             }}>Logout</Button>        
           <Calendar date={selectedDay} showAdjacentDays={"trim"} fill>
->>>>>>> feature/text-input
             {({ date, day, isSelected }) => {
               // hasContent is a boolean that determines if there is a day with a date property that matches the date of the day in the iteration.
               const hasContent = getDaysByUserId
