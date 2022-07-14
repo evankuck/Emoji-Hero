@@ -1,6 +1,6 @@
 import { React, useContext, useEffect, useState } from "react";
 import { useMutation, gql } from "@apollo/client";
-import { Form, Box, Text, FormField, Button, Select } from "grommet";
+import { Form, Box, Text, FormField, Button, Select, TextInput } from "grommet";
 
 import { UserContext } from "../../context/UserContext";
 
@@ -95,6 +95,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
   }, [createDayData, updateDayData, deleteDayData]);
 
   return (
+    
     <Form>
       <FormField name="emoji" htmlFor="textinput-id" label="Choose an Emoji">
         <TextInput placeholder="I'm feeling..." value={text} onChange={event => setText(event.target.value)} />
@@ -168,5 +169,6 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
         <Button type="button" onClick={() => setOpen(false)} label="Close" />
       </Box>
     </Form>
+    
   );
 };
