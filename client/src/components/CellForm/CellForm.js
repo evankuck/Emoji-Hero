@@ -1,22 +1,7 @@
 import { React, useContext, useEffect, useState } from "react";
 import { useMutation, gql } from "@apollo/client";
-import {
-  Grommet,
-  Form,
-  Box,
-  Calendar,
-  DropButton,
-  Heading,
-  Stack,
-  Text,
-  FormField,
-  TextInput,
-  Button,
-  TextArea,
-  RadioButton,
-  Select,
-} from "grommet";
-import { Close, Send, User } from "grommet-icons";
+import { Form, Box, Text, FormField, Button, Select } from "grommet";
+
 import { UserContext } from "../../context/UserContext";
 
 export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
@@ -73,15 +58,13 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
     { data: deleteDayData, loading: deleteDayLoading, error: deleteDayError },
   ] = useMutation(DELETE_DAY);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log("you clicked submit");
-  }
+
 
   if (data) {
     console.log(data)
   }
   const [text, setText] = useState(data && data.text ? data.text : "");
+
   // const [emoji, setEmoji] = useState("🙂");
 
   // this is for debugging
@@ -101,7 +84,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
     if (createDayData) {
 
       console.log(createDayData);
-      setCellData(createDayData.createDay)
+      setCellData(createDayData.createDay);
     }
     if (updateDayData) {
       console.log(updateDayData);
@@ -177,7 +160,7 @@ export const CellForm = ({ emoji, setEmoji, setOpen, data, date }) => {
           onClick={() =>
             deleteDayFunction({
               variables: {
-                id: data._id
+                id: data._id,
               },
             })
           }

@@ -26,7 +26,7 @@ export const Login = () => {
   ] = useMutation(LOGIN);
   useEffect(() => {
     if (loginData && loginData.login) {
-      console.log(loginData.login);
+    
       localStorage.setItem("token", loginData.login);
       window.location.href = "/";
     }

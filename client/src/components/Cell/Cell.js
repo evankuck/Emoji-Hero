@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./Cell.css";
-import {
-  Grommet,
-  Form,
-  Box,
-  Calendar,
-  DropButton,
-  Heading,
-  Stack,
-  Text,
-  FormField,
-  TextInput,
-  Button,
-} from "grommet";
-import { Notification } from "grommet-icons";
+
+import { Grommet, Box, DropButton, Heading, Text } from "grommet";
 import { CellForm } from "../CellForm/CellForm";
 
 export const Cell = (props) => {
   const { isSelected, onSelect, selected, date, day, hasContent, data } = props;
   const [open, setOpen] = useState(false);
   const [emoji, setEmoji] = useState("");
+
   return (
     <Box
       background={hasContent || emoji ? "accent-1" : "white"}
@@ -27,6 +15,7 @@ export const Cell = (props) => {
       onClick={() => onSelect(date.toISOString())}
       border
       fill
+      height="xxlarge"
       hoverIndicator={{
         background: {
           color: "background-contrast",

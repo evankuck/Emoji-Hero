@@ -4,7 +4,7 @@ import { UserContext } from "../../context/UserContext";
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
   const user = useContext(UserContext);
-  console.log(user);
+  
   function hasToken() {
     if (!user) {
       return false; // if user is falsy, return false early to exit function

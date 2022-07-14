@@ -4,16 +4,17 @@ import {
   Grommet,
   Box,
   Calendar,
-  DropButton,
   Heading,
-  Stack,
-  Text,
   Button,
+  Header
 } from "grommet";
-import { Notification } from "grommet-icons";
+
 import { Cell } from "../Cell/Cell";
 import { gql, useQuery } from "@apollo/client";
 import { UserContext } from "../../context/UserContext";
+
+
+
 const GET_DAYS_BY_USERID = gql`
 query GetDaysByUserId($userId: String!) {
   getDaysByUserId(userId: $userId) {
@@ -25,6 +26,8 @@ query GetDaysByUserId($userId: String!) {
   }
 }
 `;
+
+
 
 export const CustomDayCalendar = () => {
   const [selectedDay, setSelectedDay] = useState();
@@ -50,13 +53,31 @@ export const CustomDayCalendar = () => {
   return (
     <Grommet>
       <Box>
-        <Box align="center" pad="large">
-          <Heading level={4}>Test Calendar</Heading>
-          <Button onClick={() => {
+      <Header background="accent-1" pad="small">
+          <Heading level={4}>Emoji Hero🦸🏻‍♀️✨</Heading>
+          <Box justify="end">
+          <Button
+          className="logoutBtn"
+          primary
+          justify="end"
+          label="Logout"
+            onClick={() => {
               localStorage.removeItem("token");
-              window.location.href = "/";
-            }}>Logout</Button>        
-          <Calendar date={selectedDay} showAdjacentDays={"trim"} fill>
+              window.location.href = "/login";
+            }}
+          >
+            
+          </Button>
+          </Box>
+          
+          </Header>
+        <Box align="center" pad="large">
+          <Calendar
+            date={selectedDay}
+            showAdjacentDays={"trim"}
+            fill
+            daysOfWeek={true}
+          >
             {({ date, day, isSelected }) => {
               // hasContent is a boolean that determines if there is a day with a date property that matches the date of the day in the iteration.
               const hasContent = getDaysByUserId
